@@ -1,0 +1,36 @@
+{
+  "name": "disso-proj",
+  "version": "1.0.0",
+  "description": "disso",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibrahim-sowunmi/disso-proj.git"
+  },
+  "author": "Ibrahim Sowunmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibrahim-sowunmi/disso-proj/issues"
+  },
+  "homepage": "https://github.com/ibrahim-sowunmi/disso-proj#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.3",
+    "express": "^4.17.1",
+    "express-validator": "^6.7.0",
+    "gravatar": "^1.8.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.4",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}

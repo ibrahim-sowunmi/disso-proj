@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://admin:1234@teach-app.qorsu.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
+}
