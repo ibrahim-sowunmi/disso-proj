@@ -6,30 +6,23 @@ const ProfileSchema = new mongoose.Schema({
     ref: "user",
   },
   student: {
-    type: Boolean,
+    type: String,
     required: true,
   },
+  // TODO - modules should be required. Current cannot get input to work.
   modules: {
     type: [String],
-    require: true
-  },
-  contactable: {
-    type: Boolean,
-    default: true
   },
   bio: {
     type: String,
   },
-  staffcode: {
+  contactable: {
     type: String,
-  },
-  year: {
-    type: Number,
-    default: 0
+    default: "true"
   },
   rank: {
-    type: Number,
-    default: 0
+    type: String,
+    default: "0"
   }
 });
 

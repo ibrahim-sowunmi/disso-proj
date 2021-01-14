@@ -34,7 +34,7 @@ router.post(
   [
     auth,
     [
-      check("student", "Student Boolean is required").not().isEmpty(),
+      check("student", "Student is required").not().isEmpty(),
       check("modules", "Modules is required").not().isEmpty(),
     ],
   ],
@@ -49,8 +49,6 @@ router.post(
       modules,
       contactable,
       bio,
-      staffcode,
-      year,
       rank,
     } = req.body;
 
@@ -60,9 +58,7 @@ router.post(
     if (student) profileFields.student = student;
     if (contactable) profileFields.contactable = contactable;
     if (bio) profileFields.bio = bio;
-    if (staffcode) profileFields.staffcode = staffcode;
-    if (year) profileFields.year = year;
-    if (year) profileFields.rank = rank;
+    if (rank) profileFields.rank = rank;
     if (modules) {
       profileFields.modules = modules
         .split(",")
