@@ -45,7 +45,7 @@ const CreateProfile = ({ createProfile, history }) => {
           </small>
         </div>
         {/* TODO - handle multiple checkbox input at once? */}
-        <div class="form-group">
+        <div className="form-group">
           <input
             type="text"
             placeholder="* Modules"
@@ -53,19 +53,19 @@ const CreateProfile = ({ createProfile, history }) => {
             value={modules}
             onChange={(e) => onChange(e)}
           />
-          <small class="form-text">
+          <small className="form-text">
             Please use comma separated values (eg.
             COMP123,PSYCH123,COMPXX,BIOLXXX)
           </small>
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <textarea
             placeholder="A short bio of yourself"
             name="bio"
             value={bio}
             onChange={(e) => onChange(e)}
           ></textarea>
-          <small class="form-text">Tell us a little about yourself</small>
+          <small className="form-text">Tell us a little about yourself</small>
         </div>
         <div className="form-group">
           <select
@@ -81,7 +81,7 @@ const CreateProfile = ({ createProfile, history }) => {
             Pedagogy is one of the best methods of self-improvement
           </small>
         </div>
-        <input type="submit" class="btn btn-primary my-1" />
+        <input type="submit" className="btn btn-primary my-1" />
         <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
         </Link>

@@ -1,4 +1,4 @@
-import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR } from "../actions/types";
+import { CLEAR_PROFILE, GET_PROFILE, GET_PROFILES, PROFILE_ERROR } from "../actions/types";
 
 const initialState = {
   profile: null,
@@ -17,22 +17,28 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: payload,
-        loading: false
-      }
+        loading: false,
+      };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: payload,
+        loading: false,
+      };
     case PROFILE_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false
-      }
+        loading: false,
+      };
     // Alongside other stateful data to clear on logout
     case CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
         error: payload,
-        loading: false
-      }
+        loading: false,
+      };
     default:
       return state;
   }
