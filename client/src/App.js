@@ -12,6 +12,7 @@ import CreateProfile from "./components/profile-form/CreateProfile";
 import EditProfile from "./components/profile-form/EditProfile";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
+import Cards from "./components/cards/Cards";
 
 // Redux
 import { Provider } from "react-redux";
@@ -47,6 +48,7 @@ const App = () => {
               component={CreateProfile}
             />
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+            <PrivateRoute exact path="/cards" component={Cards} />
           </Switch>
         </section>
       </Router>

@@ -453,28 +453,28 @@ button {
   flex-basis: 20%;
 }
 
-/* Posts Page */
-.post-form .post-form-header {
+/* cards Page */
+.card-form .card-form-header {
   background: var(--primary-color);
   padding: 0.5rem;
 }
 
-.post {
+.card {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-gap: 2rem;
   align-items: center;
 }
 
-.post > div:first-child {
+.card > div:first-child {
   text-align: center;
 }
 
-.post img {
+.card img {
   width: 100px;
 }
 
-.post .comment-count {
+.card .comment-count {
   background: var(--light-color);
   color: var(--primary-color);
   padding: 0.1rem 0.2rem;
@@ -482,7 +482,7 @@ button {
   font-size: 0.8rem;
 }
 
-.post .post-date {
+.card .card-date {
   color: #aaa;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
@@ -567,11 +567,11 @@ button {
     margin-bottom: 0.2rem;
   }
 
-  .post {
+  .card {
     grid-template-columns: 1fr;
   }
-  .post a,
-  .post button {
+  .card a,
+  .card button {
     padding: 0.3rem 0.4rem;
   }
 }

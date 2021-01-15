@@ -12,11 +12,11 @@ const ProfileTop = ({
   },
 }) => {
   return (
-    <div class="profile-top bg-primary p-2">
+    <div className="profile-top bg-primary p-2">
       <p>{`Rank: ${rank}`}</p>
-      <img class="round-img my-1" src={avatar} alt={name} />
-      <h1 class="large">{name}</h1>
-      <p class="lead">{student}</p>
+      <img className="round-img my-1" src={avatar} alt={name} />
+      <h1 className="large">{name}</h1>
+      <p className="lead">{student}</p>
       <ul>
         {modules.map((module, index) => (
           <li key={index} className="btn btn-dark">{module}</li>

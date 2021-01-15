@@ -8,7 +8,7 @@ const User = require("../../models/User");
 const Card = require("../../models/Card");
 
 // @route   GET api/cards
-// @desc    Create a post
+// @desc    Create a card
 // @access  Private
 router.post(
   "/",
@@ -85,7 +85,7 @@ router.get("/:id", auth, async (req, res) => {
 //TODO - Get card by user
 
 // @route   DELETE api/cards/:id
-// @desc    Delete a post
+// @desc    Delete a card
 // @access  Private
 router.delete("/:id", auth, async (req, res) => {
   try {
