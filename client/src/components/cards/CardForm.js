@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { addCard } from "../../actions/card";
+import { getCurrentProfile } from "../../actions/profile";
 
-const CardForm = ({ addCard }) => {
+const CardForm = ({
+  getCurrentProfile,
+  addCard,
+  profile: { profile, loading },
+}) => {
   const [formData, setFormData] = useState({
     question: "",
     answer: "",
     module: "",
   });
+
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
   const { question, answer, module } = formData;
 
@@ -28,15 +38,15 @@ const CardForm = ({ addCard }) => {
   return (
     <div className="card-form">
       <div className="bg-primary p">
-        <h3>Say Something...</h3>
+        <h3>Share your knowledge</h3>
       </div>
       <form className="form my-1" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <select name="module" value={module} onChange={(e) => onChange(e)}>
             <option value="0">* Select relevant module</option>
-            <option value="Student">DUMMYMOD12</option>
-            <option value="Ta">DUMMYMOD34</option>
-            <option value="Lecturer">DUMMYMOD56</option>
+            {profile.modules.map((mod, index) => (
+              <option key={index} value={mod}>{mod}</option>
+            ))}
           </select>
         </div>
         <div className="form-group">
@@ -66,6 +76,13 @@ const CardForm = ({ addCard }) => {
 
 CardForm.propTypes = {
   addCard: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addCard })(CardForm);
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { addCard, getCurrentProfile })(
+  withRouter(CardForm)
+);

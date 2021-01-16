@@ -17,10 +17,11 @@ const CardItem = ({
     <div className="card bg-white p-1 my-1">
       <div>
         <a href="profile.html">
-          <h4>{name}</h4>
+          <h4>{`${name} - ${user.student}`}</h4>
         </a>
       </div>
       <div>
+        <p className="btn btn-primary">{module}</p>
         <p className="my-1">{question}</p>
         <p className="my-1">{answer}</p>
         <p className="card-date">
@@ -33,7 +34,7 @@ const CardItem = ({
         <button type="button" className="btn btn-light">
           <i className="fas fa-thumbs-down"></i>
         </button> */}
-        <Link to={`/card/${_id}`} className="btn btn-primary">
+        <Link to={`/cards/${_id}`} className="btn btn-primary">
           Comments{" "}
           {comments.length > 0 && (
             <span className="comment-count">{comments.length}</span>
