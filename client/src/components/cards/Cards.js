@@ -17,8 +17,8 @@ const Cards = ({ getCards, card: { cards, loading }}) => {
     </p>
     <CardForm />
     <div className="cards">
-      {cards.map(card => (
-        <CardItem key={card._id} card={card} />
+      {loading ? <p>Loading..</p> : cards.map(card => (
+        <CardItem  showComments={true} key={card._id} card={card} />
       ))}
     </div>
   </>;

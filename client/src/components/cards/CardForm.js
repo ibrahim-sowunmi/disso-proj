@@ -44,7 +44,7 @@ const CardForm = ({
         <div className="form-group">
           <select name="module" value={module} onChange={(e) => onChange(e)}>
             <option value="0">* Select relevant module</option>
-            {profile.modules.map((mod, index) => (
+            {loading || !profile.modules ? "Loading..." : profile.modules.map((mod, index) => (
               <option key={index} value={mod}>{mod}</option>
             ))}
           </select>

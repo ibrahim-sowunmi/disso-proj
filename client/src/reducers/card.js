@@ -3,7 +3,9 @@ import {
   GET_CARD,
   CARD_ERROR,
   DELETE_CARD,
-  ADD_CARD
+  ADD_CARD,
+  ADD_COMMENT,
+  REMOVE_COMMENT
 } from '../actions/types'
 
 const initialState = {
@@ -46,6 +48,21 @@ export default function(state = initialState, action) {
       return {
         ...state,
         cards: payload,
+        loading: false
+      }
+    case ADD_COMMENT:
+      return {
+        ...state,
+        card: { ...state.card, comments: payload},
+        loading: false
+      }
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.card,
+          comments: state.card.comments.filter(comment => comment._id !== payload)
+        },
         loading: false
       }
     default:

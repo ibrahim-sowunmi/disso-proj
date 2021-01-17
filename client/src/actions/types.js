@@ -16,4 +16,6 @@ export const GET_CARD = 'GET_CARD';
 export const CARD_ERROR = 'CARD_ERROR'; 
 export const DELETE_CARD = 'DELETE_CARD'; 
 export const ADD_CARD = 'ADD_CARD'; 
+export const ADD_COMMENT = 'ADD_COMMENT'; 
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'; 
 

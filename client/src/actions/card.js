@@ -1,6 +1,14 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_CARDS, GET_CARD, CARD_ERROR, DELETE_CARD, ADD_CARD } from "./types";
+import {
+  GET_CARDS,
+  GET_CARD,
+  CARD_ERROR,
+  DELETE_CARD,
+  ADD_CARD,
+  ADD_COMMENT,
+  REMOVE_COMMENT,
+} from "./types";
 
 // Get cards
 export const getCards = () => async (dispatch) => {
@@ -43,7 +51,7 @@ export const deleteCard = (id) => async (dispatch) => {
 
     dispatch({
       type: DELETE_CARD,
-      payload: id
+      payload: id,
     });
 
     dispatch(setAlert("Card Deleted", "success"));
@@ -56,22 +64,70 @@ export const deleteCard = (id) => async (dispatch) => {
 };
 
 // add card
-export const addCard = formData => async (dispatch) => {
+export const addCard = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json'
-    }
-  }
+      "Content-Type": "application/json",
+    },
+  };
 
   try {
     const res = await axios.post(`/api/cards/`, formData, config);
 
     dispatch({
       type: ADD_CARD,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert("Card created", "success"));
+  } catch (err) {
+    dispatch({
+      type: CARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// add Comment
+export const addComment = (cardId, formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.post(
+      `/api/cards/comment/${cardId}`,
+      formData,
+      config
+    );
+
+    dispatch({
+      type: ADD_COMMENT,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Comment Added", "success"));
+  } catch (err) {
+    dispatch({
+      type: CARD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// delete Comment
+export const deleteComment = (cardId, commentId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/cards/comment/${cardId}/${commentId}`);
+
+    dispatch({
+      type: REMOVE_COMMENT,
+      payload: commentId,
+    });
+
+    dispatch(setAlert("Comment deleted", "success"));
   } catch (err) {
     dispatch({
       type: CARD_ERROR,
