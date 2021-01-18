@@ -7,6 +7,7 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 
 const User = require("../../models/User");
+const Card = require("../../models/Card");
 
 // @route   POST api/users
 // @desc    Register user
@@ -49,12 +50,14 @@ router.post(
         email,
         avatar,
         password,
+        loginDates,
       });
 
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
 
+      user.loginDates.unshift(Date.now());
       await user.save();
 
       const payload = {

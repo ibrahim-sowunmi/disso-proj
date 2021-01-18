@@ -9,9 +9,9 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // TODO - modules should be required. Current cannot get input to work.
   modules: {
     type: [String],
+    required: true
   },
   bio: {
     type: String,

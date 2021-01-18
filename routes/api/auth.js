@@ -55,6 +55,16 @@ router.post(
           .json({ errors: [{ msg: "Password is invalid" }] });
       }
 
+      const filteredDates = user.loginDates.filter(
+        (date) => !datesAreOnSameDay(date, new Date())
+      );
+
+      user.loginDates = filteredDates;
+      user.loginDates.unshift(new Date());
+
+      await user.markModified("loginDates");
+      await user.save();
+
       const payload = {
         user: {
           id: user.id,
@@ -78,3 +88,8 @@ router.post(
 );
 
 module.exports = router;
+
+const datesAreOnSameDay = (first, second) =>
+  first.getFullYear() === second.getFullYear() &&
+  first.getMonth() === second.getMonth() &&
+  first.getDate() === second.getDate();

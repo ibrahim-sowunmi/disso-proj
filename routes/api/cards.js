@@ -7,7 +7,7 @@ const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const Card = require("../../models/Card");
 
-// @route   GET api/cards
+// @route   POST api/cards
 // @desc    Create a card
 // @access  Private
 router.post(
@@ -66,12 +66,28 @@ router.get("/", auth, async (req, res) => {
 // @access  Private
 router.get("/:id", auth, async (req, res) => {
   try {
+    const user = await User.findById(req.user.id).select("-password");
     const card = await Card.findById(req.params.id);
 
     if (!card) {
       return res.status(404).json({ msg: "Card does not exist" });
     }
 
+    // If you view a card today increment cardsviewed object
+    let today = `${getDate(new Date())}-${card.module}`;
+    let cvbd = user.cardsViewedByDate;
+
+    if (today in cvbd) {
+      User.update(
+        { _id: req.user.id },
+        { $set: { cardsViewedByDate: { today: cvbd[today]++ }}}
+      );
+    } else {
+      cvbd[today] = 1;
+    }
+
+    await user.markModified('cardsViewedByDate');
+    await user.save();
     res.json(card);
   } catch (err) {
     console.error(err.message);
@@ -135,8 +151,12 @@ router.post(
         user: req.user.id,
       };
 
+      // Add comment to card
+      // Increment number of comments by user
       card.comments.unshift(newComment);
+      user.noOfComments += 1;
 
+      await user.save();
       await card.save();
 
       res.json(card.comments);
@@ -150,6 +170,7 @@ router.post(
 router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
+    const user = await User.findById(req.user.id).select("-password");
 
     //Pull out comment
     const comment = card.comments.find(
@@ -172,10 +193,12 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
       .indexOf(req.user.id);
 
     card.comments.splice(removeIndex, 1);
+    user.noOfComments -= 1;
 
+    await user.save();
     await card.save();
 
-    res.json(card.comments); 
+    res.json(card.comments);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -183,3 +206,11 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
 });
 
 module.exports = router;
+
+const getDate = (dateObj) => {
+  let month = dateObj.getUTCMonth() + 1;
+  let day = dateObj.getUTCDate();
+  let year = dateObj.getUTCFullYear();
+
+  return year + "-" + month + "-" + day;
+};

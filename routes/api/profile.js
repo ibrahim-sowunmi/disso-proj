@@ -44,13 +44,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
-      student,
-      modules,
-      contactable,
-      bio,
-      rank,
-    } = req.body;
+    const { student, modules, contactable, bio, rank } = req.body;
 
     // Profile object
     const profileFields = {};
@@ -131,8 +125,8 @@ router.delete("/", auth, async (req, res) => {
   try {
     //remove cards
 
-    await  Profile.findOneAndRemove({ user: req.user.id });
-    
+    await Profile.findOneAndRemove({ user: req.user.id });
+
     //Remover user
     await User.findOneAndRemove({ _id: req.user.id });
     res.json({ msg: "User deleted" });
